@@ -34,8 +34,8 @@ ss = pd.read_parquet('../input/hm-parquet/sample_submission')
 articles = pd.read_parquet('../input/hm-parquet/articles')
 train = pd.read_parquet('/kaggle/input/hm-parquet/transactions')
 customers = pd.read_parquet('../input/hm-parquet/customers')
-train['article_id'] = train.article_id.astype('int32')
-train.t_dat = pd.to_datetime(train.t_dat)
+with open('../input/hm-parquet/mapping_to_customer.pkl', 'rb') as f:
+    loaded_dict = pickle.load(f)
 
 #3 fold val dict with the test
 val_dict = {'val_0': {'train': train.t_dat < pd.to_datetime('2020-09-16'),
