@@ -78,3 +78,5 @@ for key in val_dict.keys():
         train_df.to_csv('sub.csv',index=False)
         if USE_WANDB:
             wandb.run.summary[key] = np.mean(scores)
+
+!rm -rf H_and_M    
