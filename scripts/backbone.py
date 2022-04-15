@@ -1,6 +1,7 @@
 #https://www.kaggle.com/code/ottpocket/nn-starter-5
 PROJECT_NAME =  #string
 hyperparams = #dict
+USE_WANDB = 
 1/0 #delete this line once you have installed the kaggle secret code
 
 #Downloading utilities
@@ -14,17 +15,17 @@ import gc
 sys.path.append('/kaggle/working/H_and_M/utilities')
 from utilities import mapk
 
-
 #Setting up WandB
-import wandb
-from kaggle_secrets import UserSecretsClient
-user_secrets = UserSecretsClient()
-secret_value_0 = user_secrets.get_secret("Api_Key")
-!wandb login $secret_value_0
+if USE_WANDB:
+    import wandb
+    from kaggle_secrets import UserSecretsClient
+    user_secrets = UserSecretsClient()
+    secret_value_0 = user_secrets.get_secret("Api_Key")
+    !wandb login $secret_value_0
 
-#See https://docs.wandb.com/library/init for more details
-wandb.init(project= PROJECT_NAME, config=hyperparams)
-config = wandb.config
+    #See https://docs.wandb.com/library/init for more details
+    wandb.init(project= PROJECT_NAME, config=hyperparams)
+    config = wandb.config
 
 #upload data
 ss = pd.read_parquet('../input/hm-parquet/sample_submission')
@@ -70,8 +71,10 @@ for key in val_dict.keys():
                         train_df['prediction'].map(lambda x: x.split()), 
                         k=12
                     )
-        wandb.run.summary[key] = score
+        if USE_WANDB:
+            wandb.run.summary[key] = score
         scores.append(score)
     else:
         train_df.to_csv('sub.csv',index=False)
-        wandb.run.summary[key] = np.mean(scores)
+        if USE_WANDB:
+            wandb.run.summary[key] = np.mean(scores)
