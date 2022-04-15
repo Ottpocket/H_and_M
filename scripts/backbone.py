@@ -3,10 +3,16 @@ PROJECT_NAME =  #string
 hyperparams = #dict
 1/0 #delete this line once you have installed the kaggle secret code
 
+#Downloading utilities
+!git clone https://github.com/Ottpocket/H_and_M.git
+
 #imports
 import pandas as pd
 import numpy as np
 import gc
+
+sys.path.append('/kaggle/working/H_and_M/utilities')
+from utilities import mapk
 
 
 #Setting up WandB
@@ -41,6 +47,7 @@ val_dict = {'val_0': {'train': train.t_dat < pd.to_datetime('2020-09-16'),
 #############################
 #Val block
 #############################
+scores = []
 for key in val_dict.keys():
     print(f'Beginning {key}')
     if key != 'test':    
@@ -64,5 +71,7 @@ for key in val_dict.keys():
                         k=12
                     )
         wandb.run.summary[key] = score
+        scores.append(score)
     else:
         train_df.to_csv('sub.csv',index=False)
+        wandb.run.summary[key] = np.mean(scores)
