@@ -2,7 +2,8 @@
 PROJECT_NAME =  #string
 hyperparams = #dict
 USE_WANDB = 
-1/0 #delete this line once you have installed the kaggle secret code
+1/0 #delete this line once you have installed the kaggle secret code.  Done by clicking on the Add-ons, then Secrets
+1/0 #delete this once you have attached hm-parquet dataset
 
 #Downloading utilities
 !git clone https://github.com/Ottpocket/H_and_M.git
@@ -10,6 +11,7 @@ USE_WANDB =
 #imports
 import pandas as pd
 import numpy as np
+import sys
 import gc
 
 sys.path.append('/kaggle/working/H_and_M/utilities')
