@@ -14,6 +14,7 @@ import pandas as pd
 import numpy as np
 import sys
 import gc
+import pickle
 
 sys.path.append('/kaggle/working/H_and_M/utilities')
 from utilities import mapk
