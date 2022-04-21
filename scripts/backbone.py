@@ -1,3 +1,5 @@
+'''
+uncomment this upon download
 #https://www.kaggle.com/code/ottpocket/nn-starter-5
 PROJECT_NAME =  #string
 hyperparams = #dict
@@ -7,7 +9,7 @@ USE_WANDB =
 
 #Downloading utilities
 !git clone https://github.com/Ottpocket/H_and_M.git
-
+'''
 #imports
 import pandas as pd
 import numpy as np
