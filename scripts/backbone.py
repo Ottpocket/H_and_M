@@ -45,7 +45,7 @@ val_dict = {'val_0': {'train': train.t_dat < pd.to_datetime('2020-09-16'),
             'val_1': {'train': train.t_dat < pd.to_datetime('2020-09-09'),
                 'val': (train.t_dat >= pd.to_datetime('2020-09-09')) & (train.t_dat < pd.to_datetime('2020-09-16'))}, 
             'val_2': {'train': train.t_dat < pd.to_datetime('2020-09-02'),
-                'val': (train.t_dat >= pd.to_datetime('2020-09-02')) & (train.t_dat < pd.to_datetime('2020-09-09'))}
+                'val': (train.t_dat >= pd.to_datetime('2020-09-02')) & (train.t_dat < pd.to_datetime('2020-09-09'))},
             'test': {}}
 
 
@@ -58,7 +58,7 @@ for key in val_dict.keys():
     if key != 'test':    
         train_df = train[val_dict[key]['train']].copy().reset_index(drop=True)
         val = train[val_dict[key]['val']].reset_index(drop=True)
-        val = valid.rename({'article_id':'prediction'},axis=1)
+        val = val.rename({'article_id':'prediction'},axis=1)
         val['true'] =\
             val.prediction.apply(lambda x: ' '.join(['0'+str(k) for k in x]))
     else:
